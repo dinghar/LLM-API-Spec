@@ -6,18 +6,18 @@ API contracts are strict and inflexible. Specific URL structure, parameters, hea
 
 Compared to REST APIs, GraphQL is an approach at developing a more client-friendly approach to consuming an API. It can be purely additive to the existing API, for instance by exposing a `{baseUrl}/graphql` endpoint in addition the existing REST API.
 
-Taking it a step further, an API could expose a `{baseUrl}/llm` endpoint that would offer greater flexibility. The endpoint could accept a single string parameter that would contain a description of the operation being requested. The server would have an API spec that detailed the API’s capabilities and specifics, which would be passed, along with the user’s request, to an LLM. The LLM would be used to generate an output. The exact form of the output needs to be fleshed out.
+Taking it a step further, an API could expose a `{baseUrl}/llm` endpoint that would offer greater flexibility. The endpoint could accept a single string parameter that would describe the operation being requested. The server would have an API spec which would be passed, along with the user’s request, to an LLM. The LLM would be used to generate an output. The exact form of the output needs to be fleshed out.
 
 ### Possible Outputs
-- A request that the client can execute.
+- An HTTP request that the client can execute.
   ```json
   {
-    url: "/products"
-    method: GET
+    "url": "/products",
+    "method": "GET"
   }
   ```
-- A request that the server can execute.
-- Code to execute the user's request. This would be particularly useful for multi-step requests.
+- An HTTP request that the server can execute.
+- Code for the server to execute to fulfill the user's request. This would be useful for multi-step requests, but the security implications of allowing arbitrary code execution on the server probably make this a non-starter.
   ```typescript
   (() => {
     const a = foo();
